@@ -20,7 +20,7 @@ class MainActivity : SupportActivityInset<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(viewBinding.root)
         setWindowTransparency(this)
     }
 
