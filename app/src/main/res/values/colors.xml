@@ -10,4 +10,6 @@
     <color name="dark_grey">#736A6A</color>
     <color name="dark_grey20">#33736A6A</color>
     <color name="note_item_color">#8E9BA5</color>
+    <color name="light_blue">#B5D5EF</color>
+    <color name="red">#AE2C23</color>
 </resources>

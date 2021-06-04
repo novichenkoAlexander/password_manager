@@ -2,6 +2,8 @@ package com.example.passwordmanager.screens.note
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentNoteBinding
 import com.example.passwordmanager.support.NavigationFragment
@@ -18,11 +20,20 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewBinding.ivCursorBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setVerticalMargin(marginTop = top)
     }
 
-
+    override val backPressedCallback: OnBackPressedCallback
+        get() = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
 }

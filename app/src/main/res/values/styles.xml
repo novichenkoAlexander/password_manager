@@ -9,13 +9,13 @@
         <item name="fontFamily">sans-serif-black</item>
     </style>
 
-    <style name="RecordFragmentTextViewStyle">
+    <style name="NoteFragmentTextViewStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
-    <style name="RecordFragmentEditTextStyle">
+    <style name="NoteFragmentEditTextStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
