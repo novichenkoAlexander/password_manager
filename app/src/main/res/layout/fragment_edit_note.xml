@@ -32,7 +32,7 @@
             android:background="@drawable/ic_cursor_back" />
 
         <TextView
-            android:id="@+id/edit"
+            android:id="@+id/tvEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -43,6 +43,34 @@
             android:textSize="20sp"
             android:textStyle="normal" />
     </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tvDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:elevation="4dp"
+        android:text="@string/done"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:elevation="4dp"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/tvUserName"
@@ -63,16 +91,16 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_record_item_shape"
+        android:background="@drawable/edit_text_note_item_shape"
         android:elevation="4dp"
         android:enabled="false"
+        android:hint="user"
         android:maxLines="1"
         android:paddingHorizontal="12dp"
         android:theme="@style/NoteFragmentEditTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
-        tools:text="IvanovIvan" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
     <TextView
         android:id="@+id/tvPassword"
@@ -92,16 +120,16 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_record_item_shape"
+        android:background="@drawable/edit_text_note_item_shape"
         android:elevation="4dp"
         android:enabled="false"
+        android:hint="password"
         android:maxLines="1"
         android:paddingHorizontal="12dp"
         android:theme="@style/NoteFragmentEditTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPassword"
-        tools:text="aaaaaaaaaaa" />
+        app:layout_constraintTop_toBottomOf="@id/tvPassword" />
 
     <TextView
         android:id="@+id/tvSiteUrl"
@@ -119,10 +147,12 @@
         android:id="@+id/etSiteUrl"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginHorizontal="12dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_website_shape"
+        android:background="@drawable/edit_text_note_item_shape"
         android:elevation="4dp"
         android:enabled="false"
+        android:hint="@string/website_hint"
         android:paddingHorizontal="12dp"
         android:theme="@style/NoteFragmentEditTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,6 +170,7 @@
         android:text="@string/delete_password"
         android:textColor="@color/red"
         android:textSize="24sp"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

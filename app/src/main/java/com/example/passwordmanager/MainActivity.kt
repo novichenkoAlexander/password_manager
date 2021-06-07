@@ -24,6 +24,7 @@ class MainActivity : SupportActivityInset<ActivityMainBinding>() {
         setWindowTransparency(this)
     }
 
+    //  hide keyboard when touch the screen
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm: InputMethodManager =

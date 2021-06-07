@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Toolbar
+        android:id="@+id/fragment_add_note_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fragment_add_note_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_password"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintEnd_toEndOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintStart_toStartOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/fragment_add_note_toolbar" />
+
+    <TextView
+        android:id="@+id/fragment_add_note_tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/cancel"
+        android:textColor="@color/teal_200"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintStart_toStartOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintTop_toTopOf="@id/fragment_add_note_toolbar" />
+
+    <TextView
+        android:id="@+id/fragment_add_note_tv_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:enabled="false"
+        android:text="@string/done"
+        android:textColor="@color/note_item_color"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintEnd_toEndOf="@id/fragment_add_note_toolbar"
+        app:layout_constraintTop_toTopOf="@id/fragment_add_note_toolbar" />
+
+    <EditText
+        android:id="@+id/fragment_add_note_website"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:hint="@string/website"
+        android:paddingHorizontal="18dp"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_add_note_toolbar"
+        tools:text="Amazon.com" />
+
+    <EditText
+        android:id="@+id/fragment_add_note_userName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:hint="@string/username"
+        android:paddingHorizontal="18dp"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_add_note_website"
+        tools:text="Example.com" />
+
+    <EditText
+        android:id="@+id/fragment_add_note_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:hint="@string/password"
+        android:maxLines="1"
+        android:paddingHorizontal="18dp"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_add_note_userName"
+        tools:targetApi="o"
+        tools:text="********" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

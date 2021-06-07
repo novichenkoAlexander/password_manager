@@ -24,7 +24,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     )
 
     private fun onItemClick(item: Note) {
-        findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(item))
+//        findNavController().navigateSafe(MainFragmentDirections.toAddNoteFragment())
+        //TODO: to note edit fragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.recyclerView.adapter = adapter
 
         viewBinding.fabAdd.setOnClickListener {
-            findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
+            findNavController().navigateSafe(MainFragmentDirections.toAddNoteFragment())
         }
 
     }

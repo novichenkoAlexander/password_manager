@@ -69,9 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/note_item_color"
+        android:backgroundTint="@color/light_blue"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/note_item_color"
+        app:backgroundTint="@color/light_blue"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|end" />
 
@@ -83,7 +83,7 @@
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/record_list_item" />
+        tools:listitem="@layout/note_list_item" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

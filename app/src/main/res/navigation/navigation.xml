@@ -3,7 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
+
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.passwordmanager.splash.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/toCreatePasswordFragment"
+            app:destination="@id/CreatePasswordFragment" />
+        <action
+            android:id="@+id/toLoginFragment"
+            app:destination="@+id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/CreatePasswordFragment"
+        android:name="com.example.passwordmanager.screens.login.CreatePasswordFragment"
+        android:label="CreatePasswordFragment"
+        tools:layout="@layout/fragment_create_password">
+        <action
+            android:id="@+id/toLoginFragment"
+            app:destination="@+id/loginFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.passwordmanager.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/toMainFragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
@@ -11,15 +45,25 @@
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/toNoteFragment"
-            app:destination="@id/NoteFragment" />
+            android:id="@+id/toAddNoteFragment"
+            app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/toEditNoteFragment"
+            app:destination="@+id/noteFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/NoteFragment"
-        android:name="com.example.passwordmanager.screens.note.NoteFragment"
+        android:id="@+id/addNoteFragment"
+        android:name="com.example.passwordmanager.screens.note.AddNoteFragment"
+        tools:layout="@layout/fragment_add_note">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="com.example.passwordmanager.screens.note.EditNoteFragment"
         android:label="NoteFragment"
-        tools:layout="@layout/fragment_note">
+        tools:layout="@layout/fragment_edit_note">
         <argument
             android:name="note"
             app:argType="com.example.passwordmanager.models.Note"

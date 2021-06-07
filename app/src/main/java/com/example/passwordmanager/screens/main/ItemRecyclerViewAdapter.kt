@@ -17,7 +17,7 @@ class ItemRecyclerViewAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): ItemViewHolder = ItemViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.record_list_item, parent, false),
+        LayoutInflater.from(parent.context).inflate(R.layout.note_list_item, parent, false),
         ::onItemClick
     )
 
