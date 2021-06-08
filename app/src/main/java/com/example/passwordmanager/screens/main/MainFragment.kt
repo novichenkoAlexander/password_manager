@@ -23,9 +23,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         onClick = ::onItemClick
     )
 
-    private fun onItemClick(item: Note) {
-//        findNavController().navigateSafe(MainFragmentDirections.toAddNoteFragment())
-        //TODO: to note edit fragment
+    private fun onItemClick(note: Note) {
+        findNavController().navigateSafe(MainFragmentDirections.toEditNoteFragment(note))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

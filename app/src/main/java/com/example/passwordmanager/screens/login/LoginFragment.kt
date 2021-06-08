@@ -11,6 +11,6 @@ class LoginFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment
     override val viewBinding: FragmentLoginBinding by viewBinding()
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        TODO("Not yet implemented")
+
     }
 }
