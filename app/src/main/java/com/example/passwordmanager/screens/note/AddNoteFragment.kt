@@ -12,6 +12,7 @@ import com.example.passwordmanager.databinding.FragmentAddNoteBinding
 import com.example.passwordmanager.support.NavigationFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.passwordmanager.models.Note
 import com.example.passwordmanager.support.setVerticalMargin
 
 class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.fragment_add_note) {
@@ -28,7 +29,22 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
         val website = viewBinding.fragmentAddNoteWebsite
         val user = viewBinding.fragmentAddNoteUserName
         val password = viewBinding.fragmentAddNotePassword
+        val cancel = viewBinding.fragmentAddNoteTvCancel
+        val done = viewBinding.fragmentAddNoteTvDone
 
+        viewModel.textEnteredLiveData.observe(this.viewLifecycleOwner) { notEmpty ->
+            if (notEmpty) {
+                done.apply {
+                    isEnabled = true
+                    setTextColor(resources.getColor(R.color.teal_200))
+                }
+            } else {
+                done.apply {
+                    isEnabled = false
+                    setTextColor(resources.getColor(R.color.note_item_color))
+                }
+            }
+        }
 
         website.afterTextChanged {
             checkFields(website, user, password)
@@ -42,20 +58,20 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
             checkFields(website, user, password)
         }
 
-        viewModel.textEnteredLiveData.observe(this.viewLifecycleOwner) { notEmptyField ->
-            if (notEmptyField) {
-                viewBinding.fragmentAddNoteTvDone.apply {
-                    isEnabled = true
-                    setTextColor(resources.getColor(R.color.teal_200))
-                }
-            } else {
-                viewBinding.fragmentAddNoteTvDone.apply {
-                    isEnabled = false
-                    setTextColor(resources.getColor(R.color.note_item_color))
-                }
-            }
+        done.setOnClickListener {
+            viewModel.saveNote(
+                Note(
+                    login = user.text.toString(),
+                    password = password.text.toString(),
+                    siteUrl = website.text.toString()
+                )
+            )
+            findNavController().popBackStack()
         }
-        saveNote()
+
+        cancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
     }
 
@@ -87,31 +103,6 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
         })
     }
 
-    private fun saveNote() {
-        val buttonDone = viewBinding.fragmentAddNoteTvDone
-        val fieldUsername = viewBinding.fragmentAddNoteUserName
-        val fieldWebsite = viewBinding.fragmentAddNoteWebsite
-        val buttonCancel = viewBinding.fragmentAddNoteTvCancel
-
-        //TODO: make livedata to check fields for emptyness
-        if (fieldWebsite.text.isNotBlank() && fieldUsername.text.isNotBlank()) {
-            buttonDone.apply {
-                isEnabled = true
-                setTextColor(resources.getColor(R.color.teal_200))
-                setOnClickListener {
-
-                }
-            }
-            //TODO: viewModel.saveNote()
-        }
-
-
-        buttonCancel.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-
-    }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.fragmentAddNoteToolbar.setVerticalMargin(marginTop = top)

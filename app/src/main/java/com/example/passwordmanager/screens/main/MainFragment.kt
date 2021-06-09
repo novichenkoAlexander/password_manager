@@ -32,6 +32,10 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewBinding.recyclerView.adapter = adapter
 
+        viewModel.notesLiveDate.observe(this.viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
         viewBinding.fabAdd.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toAddNoteFragment())
         }

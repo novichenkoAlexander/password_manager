@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.passwordmanager.database.DataBaseConstructor
 import com.example.passwordmanager.database.PasswordAppDatabase
 import com.example.passwordmanager.datastore.AppSettings
+import com.example.passwordmanager.repositories.NotesRepository
 import com.example.passwordmanager.repositories.UserRepository
 import com.example.passwordmanager.screens.login.CreatePasswordViewModel
 import com.example.passwordmanager.screens.login.LoginViewModel
@@ -25,8 +26,8 @@ class PasswordManagerApp : Application() {
     }
 
     private val viewModels = module {
-        viewModel { MainViewModel() }
-        viewModel { AddNoteViewModel() }
+        viewModel { MainViewModel(get()) }
+        viewModel { AddNoteViewModel(get()) }
         viewModel { CreatePasswordViewModel(get()) }
         viewModel { LoginViewModel(get()) }
     }
@@ -40,6 +41,7 @@ class PasswordManagerApp : Application() {
 
     private val repositories = module {
         factory { UserRepository(get(), get()) }
+        factory { NotesRepository(get()) }
 
     }
 }

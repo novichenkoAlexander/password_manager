@@ -1,9 +1,12 @@
 package com.example.passwordmanager.screens.note
 
 import androidx.lifecycle.MutableLiveData
+import com.example.passwordmanager.models.Note
+import com.example.passwordmanager.repositories.NotesRepository
 import com.example.passwordmanager.support.CoroutineViewModel
+import kotlinx.coroutines.launch
 
-class AddNoteViewModel() : CoroutineViewModel() {
+class AddNoteViewModel(private val notesRepository: NotesRepository) : CoroutineViewModel() {
 
     val textEnteredLiveData = MutableLiveData<Boolean>()
 
@@ -13,5 +16,9 @@ class AddNoteViewModel() : CoroutineViewModel() {
         } else {
             textEnteredLiveData.postValue(false)
         }
+    }
+
+    fun saveNote(note: Note) = launch {
+        notesRepository.saveNote(note)
     }
 }
