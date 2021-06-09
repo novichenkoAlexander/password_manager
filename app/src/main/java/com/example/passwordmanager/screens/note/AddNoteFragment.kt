@@ -1,12 +1,16 @@
 package com.example.passwordmanager.screens.note
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentAddNoteBinding
 import com.example.passwordmanager.support.NavigationFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.passwordmanager.support.setVerticalMargin
 
@@ -15,11 +19,72 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
 
     override val viewBinding: FragmentAddNoteBinding by viewBinding()
 
+    private val viewModel: AddNoteViewModel by viewModel()
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val website = viewBinding.fragmentAddNoteWebsite
+        val user = viewBinding.fragmentAddNoteUserName
+        val password = viewBinding.fragmentAddNotePassword
+
+
+        website.afterTextChanged {
+            checkFields(website, user, password)
+        }
+
+        user.afterTextChanged {
+            checkFields(website, user, password)
+        }
+
+        password.afterTextChanged {
+            checkFields(website, user, password)
+        }
+
+        viewModel.textEnteredLiveData.observe(this.viewLifecycleOwner) { notEmptyField ->
+            if (notEmptyField) {
+                viewBinding.fragmentAddNoteTvDone.apply {
+                    isEnabled = true
+                    setTextColor(resources.getColor(R.color.teal_200))
+                }
+            } else {
+                viewBinding.fragmentAddNoteTvDone.apply {
+                    isEnabled = false
+                    setTextColor(resources.getColor(R.color.note_item_color))
+                }
+            }
+        }
         saveNote()
 
+    }
+
+    private fun checkFields(website: EditText, user: EditText, password: EditText) {
+        with(viewModel) {
+            checkForEmptyFields(
+                website.text.toString(),
+                user.text.toString(),
+                password.text.toString()
+            )
+        }
+    }
+
+    private fun EditText.afterTextChanged(onTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                onTextChanged.invoke(s.toString())
+            }
+
+        })
     }
 
     private fun saveNote() {
@@ -58,4 +123,5 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
                 findNavController().popBackStack()
             }
         }
+
 }

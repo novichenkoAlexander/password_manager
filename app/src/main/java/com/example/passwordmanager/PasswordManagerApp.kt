@@ -6,8 +6,9 @@ import com.example.passwordmanager.database.PasswordAppDatabase
 import com.example.passwordmanager.datastore.AppSettings
 import com.example.passwordmanager.repositories.UserRepository
 import com.example.passwordmanager.screens.login.CreatePasswordViewModel
+import com.example.passwordmanager.screens.login.LoginViewModel
 import com.example.passwordmanager.screens.main.MainViewModel
-import com.example.passwordmanager.screens.note.NoteViewModel
+import com.example.passwordmanager.screens.note.AddNoteViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -25,8 +26,9 @@ class PasswordManagerApp : Application() {
 
     private val viewModels = module {
         viewModel { MainViewModel() }
-        viewModel { NoteViewModel() }
+        viewModel { AddNoteViewModel() }
         viewModel { CreatePasswordViewModel(get()) }
+        viewModel { LoginViewModel(get()) }
     }
 
     private val databaseModule = module {

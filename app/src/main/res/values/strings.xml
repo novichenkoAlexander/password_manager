@@ -2,8 +2,9 @@
     <string name="app_name">PasswordManager</string>
     <string name="toolbar_title">Passwords</string>
     <string name="edit">Edit</string>
-    <string name="username">UserName</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="password_low_camel">password</string>
     <string name="website">WEBSITE</string>
     <string name="delete_password">Delete Password</string>
     <string name="done">Done</string>
@@ -13,6 +14,8 @@
     <string name="enter_passcode">Enter Passcode</string>
     <string name="passwords_are_locked">Passwords Are Locked</string>
     <string name="website_hint">example.com</string>
-    <string name="create_password">Create password</string>
+    <string name="confirm">Confirm</string>
     <string name="hello_please_create_password">Hello, please <br/> create password</string>
+    <string name="example_com">example.com</string>
+    <string name="user">user</string>
 </resources>

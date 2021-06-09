@@ -15,7 +15,7 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
 
     override val viewBinding: FragmentEditNoteBinding by viewBinding()
 
-    private val viewModel: NoteViewModel by viewModel()
+    private val viewModelAdd: EditNoteViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
