@@ -34,7 +34,15 @@ class CreatePasswordFragment :
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.statusLiveData.observe(this.viewLifecycleOwner) { status ->
-            Toast.makeText(context, status, Toast.LENGTH_LONG).show()
+            when (status) {
+                CreatePasswordViewModel.ERROR_CREATING_PASSWORD -> viewBinding.tvErrorMessage.text =
+                    CreatePasswordViewModel.ERROR_CREATING_PASSWORD
+                CreatePasswordViewModel.PASSWORD_CREATED_SUCCESSFUL -> Toast.makeText(
+                    context,
+                    status,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         viewModel.passwordCreated.observe(this.viewLifecycleOwner) { passwordCreated ->

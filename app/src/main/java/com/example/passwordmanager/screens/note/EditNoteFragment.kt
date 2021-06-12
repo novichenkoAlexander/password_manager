@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentEditNoteBinding
 import com.example.passwordmanager.support.NavigationFragment
@@ -17,60 +18,67 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
 
     private val viewModelAdd: EditNoteViewModel by viewModel()
 
+    private val args: EditNoteFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val user = viewBinding.etUserName
+        val password = viewBinding.etPassword
+        val site = viewBinding.etSiteUrl
+        val toolbarTitle = viewBinding.tvToolbarTitle
+
+        args.note.apply {
+            user.setText(this.login)
+            password.setText(this.password)
+            site.setText(this.siteUrl)
+            toolbarTitle.text = this.siteUrl
+        }
 
         viewBinding.ivCursorBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
         viewBinding.tvEdit.setOnClickListener {
-            viewBinding.etUserName.isEnabled = true
-            viewBinding.etPassword.isEnabled = true
-            viewBinding.etSiteUrl.isEnabled = true
-
-            viewBinding.tvCancel.visibility = View.VISIBLE
-            viewBinding.tvDone.visibility = View.VISIBLE
-
-            viewBinding.ivCursorBack.visibility = View.GONE
-            viewBinding.tvEdit.visibility = View.GONE
+            setViewsAvailability(true)
+            setVisibilityToDoneAndCancel(View.VISIBLE)
+            setVisibilityToEditAndBack(View.GONE)
         }
 
         viewBinding.tvDone.setOnClickListener {
             //TODO: save data in fields
-            setViewDisabled()
-
-            setVisibilityGone()
-            setVisibilityVisible()
+            setViewsAvailability(false)
+            setVisibilityToDoneAndCancel(View.GONE)
+            setVisibilityToEditAndBack(View.VISIBLE)
         }
 
         viewBinding.tvCancel.setOnClickListener {
             //TODO: cancel all changes
-            setVisibilityGone()
-            setVisibilityVisible()
-
-            setViewDisabled()
+            setVisibilityToDoneAndCancel(View.GONE)
+            setVisibilityToEditAndBack(View.VISIBLE)
+            setViewsAvailability(false)
         }
 
     }
 
-    private fun setVisibilityGone() {
-        viewBinding.tvDone.visibility = View.GONE
-        viewBinding.tvCancel.visibility = View.GONE
+    private fun setVisibilityToDoneAndCancel(visibility: Int) {
+        viewBinding.tvDone.visibility = visibility
+        viewBinding.tvCancel.visibility = visibility
     }
 
-    private fun setVisibilityVisible() {
-        viewBinding.ivCursorBack.visibility = View.VISIBLE
-        viewBinding.tvEdit.visibility = View.VISIBLE
+    private fun setVisibilityToEditAndBack(visibility: Int) {
+        viewBinding.ivCursorBack.visibility = visibility
+        viewBinding.tvEdit.visibility = visibility
     }
 
-    private fun setViewDisabled() {
-        viewBinding.etUserName.isEnabled = false
-        viewBinding.etPassword.isEnabled = false
-        viewBinding.etSiteUrl.isEnabled = false
+    private fun setViewsAvailability(enable: Boolean) {
+        viewBinding.etUserName.isEnabled = enable
+        viewBinding.etPassword.isEnabled = enable
+        viewBinding.etSiteUrl.isEnabled = enable
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
+//        viewBinding.root.setVerticalMargin(marginTop = top)
         viewBinding.toolbar.setVerticalMargin(marginTop = top)
     }
 

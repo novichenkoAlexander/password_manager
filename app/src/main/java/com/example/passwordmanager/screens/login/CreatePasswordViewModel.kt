@@ -12,21 +12,26 @@ class CreatePasswordViewModel(private val userRepository: UserRepository) : Coro
 
     val statusLiveData = MutableLiveData<String>()
 
-    val passwordCreated : LiveData<Boolean> = userRepository.checkPasswordCreated().asLiveData()
+    val passwordCreated: LiveData<Boolean> = userRepository.checkPasswordCreated().asLiveData()
 
     fun createPassword(password: Long) = launch {
         try {
             when {
                 password.toString().isNotEmpty() ->
                     if (userRepository.createPassword(password)) {
-                        statusLiveData.postValue("Password Created")
+                        statusLiveData.postValue(PASSWORD_CREATED_SUCCESSFUL)
                     } else {
-                        statusLiveData.postValue("Error")
+                        statusLiveData.postValue(ERROR_CREATING_PASSWORD)
                     }
             }
         } catch (e: Exception) {
             statusLiveData.postValue(e.message)
         }
+    }
+
+    companion object {
+        const val PASSWORD_CREATED_SUCCESSFUL = "Password created successful"
+        const val ERROR_CREATING_PASSWORD = "Password length too short"
     }
 
 }

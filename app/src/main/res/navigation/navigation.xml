@@ -51,7 +51,7 @@
             app:destination="@id/addNoteFragment" />
         <action
             android:id="@+id/toEditNoteFragment"
-            app:destination="@+id/noteFragment" />
+            app:destination="@+id/editNoteFragment" />
     </fragment>
 
     <fragment
@@ -62,7 +62,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/noteFragment"
+        android:id="@+id/editNoteFragment"
         android:name="com.example.passwordmanager.screens.note.EditNoteFragment"
         android:label="NoteFragment"
         tools:layout="@layout/fragment_edit_note">

@@ -20,7 +20,7 @@ class UserRepository(private val userDao: UserDao, private val appSettings: AppS
     suspend fun createPassword(password: Long): Boolean {
         var passwordCreated: Boolean
         withContext(Dispatchers.IO) {
-            passwordCreated = if (checkForUserExists().not()) {
+            passwordCreated = if (checkForUserExists().not() && password.toString().length >= 4) {
                 userDao.addNewUser(User(password = password))
                 appSettings.setPassword(password)
                 true

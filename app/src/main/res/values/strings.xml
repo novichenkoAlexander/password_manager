@@ -5,17 +5,20 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="password_low_camel">password</string>
-    <string name="website">WEBSITE</string>
     <string name="delete_password">Delete Password</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="add_password">Add Password</string>
-    <string name="password_n_manager">Password <br/> Manager</string>
+    <string name="password_n_manager">Password <br /> Manager</string>
     <string name="enter_passcode">Enter Passcode</string>
     <string name="passwords_are_locked">Passwords Are Locked</string>
     <string name="website_hint">example.com</string>
     <string name="confirm">Confirm</string>
-    <string name="hello_please_create_password">Hello, please <br/> create password</string>
+    <string name="create_password">Create password</string>
     <string name="example_com">example.com</string>
     <string name="user">user</string>
+    <string name="password_hint">password</string>
+    <string name="user_hint">user</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="website">Website</string>
 </resources>

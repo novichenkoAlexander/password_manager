@@ -26,6 +26,7 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val website = viewBinding.fragmentAddNoteWebsite
         val user = viewBinding.fragmentAddNoteUserName
         val password = viewBinding.fragmentAddNotePassword
@@ -36,7 +37,8 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
             if (notEmpty) {
                 done.apply {
                     isEnabled = true
-                    setTextColor(resources.getColor(R.color.teal_200))
+                    @Suppress("DEPRECATION")
+                    setTextColor(resources.getColor(R.color.white))
                 }
             } else {
                 done.apply {

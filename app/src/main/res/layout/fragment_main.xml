@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/dark_grey"
+            app:contentScrim="@color/toolbar_color"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed"
             app:statusBarScrim="@android:color/transparent">
 
@@ -78,7 +78,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_blue"
+        android:background="@color/app_background"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

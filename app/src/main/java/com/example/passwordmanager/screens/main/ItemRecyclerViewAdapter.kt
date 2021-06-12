@@ -36,6 +36,7 @@ class ItemRecyclerViewAdapter(
 
         private val tvSiteUrl = itemView.findViewById<TextView>(R.id.tvSiteUrl)
         private val tvLogin = itemView.findViewById<TextView>(R.id.tvLogin)
+        private val ivIcon = itemView.findViewById<TextView>(R.id.ivIcon)
 
 
         init {
@@ -47,9 +48,16 @@ class ItemRecyclerViewAdapter(
         fun bind(item: Note) {
             tvSiteUrl.text = item.siteUrl
             tvLogin.text = item.login
+            ivIcon.text = setLetter(item.siteUrl)
+            //TODO: make it with drawable
         }
     }
+
+    private fun setLetter(name: String): String {
+        return name.substring(0, 1)
+    }
 }
+
 
 class ItemAdapterDiffCallBack : DiffUtil.ItemCallback<Note>() {
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {

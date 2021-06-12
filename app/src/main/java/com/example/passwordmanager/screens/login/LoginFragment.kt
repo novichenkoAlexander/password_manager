@@ -25,18 +25,15 @@ class LoginFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment
         viewModel.statusLivaData.observe(this.viewLifecycleOwner) { status ->
             if (status.equals(LoginViewModel.SUCCESS)) {
                 findNavController().navigateSafe(LoginFragmentDirections.toMainFragment())
+                Toast.makeText(context, status, Toast.LENGTH_LONG).show()
+            } else {
+                viewBinding.tvWrongPassword.visibility = View.VISIBLE
             }
-            Toast.makeText(context, status, Toast.LENGTH_LONG).show()
+
         }
 
-        viewBinding.loginFragmentEtPassword.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.login(viewBinding.loginFragmentEtPassword.text.toString().toLong())
-                true
-            } else {
-                false
-            }
-
+        viewBinding.btnConfirm.setOnClickListener {
+            viewModel.login(viewBinding.loginFragmentEtPassword.text.toString().toLong())
         }
 
 
