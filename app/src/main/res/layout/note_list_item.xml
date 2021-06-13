@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:elevation="4dp">
+            android:elevation="0dp">
 
             <TextView
                 android:id="@+id/ivIcon"

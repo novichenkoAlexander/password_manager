@@ -74,6 +74,7 @@
         app:layout_constraintEnd_toStartOf="@id/fragment_add_note_website"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/fragment_add_note_website" />
+
     <EditText
         android:id="@+id/fragment_add_note_website"
         android:layout_width="0dp"

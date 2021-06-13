@@ -11,9 +11,6 @@ abstract class NotesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun saveNote(note: Note): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertNotes(notes: List<Note>)
-
     @Delete
     abstract fun deleteNote(note: Note)
 
@@ -23,4 +20,6 @@ abstract class NotesDao {
     @Query("SELECT * FROM notes")
     abstract fun getNotesFlow(): Flow<List<Note>>
 
+    @Query("SELECT * FROM notes WHERE id==:noteId")
+    abstract fun getNoteById(noteId: Long): Note
 }

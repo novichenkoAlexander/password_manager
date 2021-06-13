@@ -10,9 +10,9 @@ class LoginViewModel(private val userRepository: UserRepository) : CoroutineView
 
     val statusLivaData = MutableLiveData<String>()
 
-    fun login(password: Long) = launch {
+    fun login(password: String) = launch {
         try {
-            val loggedIn = userRepository.login(password)
+            val loggedIn = userRepository.login(password.toLong())
             if (!loggedIn) {
                 statusLivaData.postValue(WRONG_PASSWORD)
             } else {

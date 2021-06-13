@@ -33,7 +33,7 @@ class LoginFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment
         }
 
         viewBinding.btnConfirm.setOnClickListener {
-            viewModel.login(viewBinding.loginFragmentEtPassword.text.toString().toLong())
+            viewModel.login(viewBinding.loginFragmentEtPassword.text.toString())
         }
 
 
