@@ -8,8 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_grey">#736A6A</color>
-    <color name="app_background">#9caeff</color>
-    <color name="toolbar_color">#6b6fe8</color>
+    <color name="app_background">#FEDBD0</color>
+    <color name="app_secondary_background">#FEEAE6</color>
+    <color name="main_text_color">#442C2E</color>
+    <color name="toolbar_color">#AC8B81</color>
     <color name="dark_grey20">#33736A6A</color>
     <color name="note_item_color">#8E9BA5</color>
     <color name="light_blue">#B5D5EF</color>

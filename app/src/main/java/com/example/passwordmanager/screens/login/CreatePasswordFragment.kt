@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,10 +35,11 @@ class CreatePasswordFragment :
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.statusLiveData.observe(this.viewLifecycleOwner) { status ->
+            val error = CreatePasswordViewModel.ERROR_CREATING_PASSWORD
+            val success = CreatePasswordViewModel.PASSWORD_CREATED_SUCCESSFUL
             when (status) {
-                CreatePasswordViewModel.ERROR_CREATING_PASSWORD -> viewBinding.tvErrorMessage.text =
-                    CreatePasswordViewModel.ERROR_CREATING_PASSWORD
-                CreatePasswordViewModel.PASSWORD_CREATED_SUCCESSFUL -> Toast.makeText(
+                error -> viewBinding.tvErrorMessage.text = error
+                success -> Toast.makeText(
                     context,
                     status,
                     Toast.LENGTH_LONG
@@ -54,7 +56,11 @@ class CreatePasswordFragment :
         }
 
         viewBinding.btnCreatePassword.setOnClickListener {
-            viewModel.createPassword(viewBinding.tvCreatePassword.text.toString().toLong())
+            viewModel.createPassword(viewBinding.etCreatePassword.text.toString())
+        }
+
+        viewBinding.etCreatePassword.doAfterTextChanged {
+            viewBinding.tvErrorMessage.text = ""
         }
 
     }

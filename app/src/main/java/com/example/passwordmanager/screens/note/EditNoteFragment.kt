@@ -45,13 +45,14 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
 
         viewBinding.tvDone.setOnClickListener {
             // Update note
-            val changedNote = Note(
-                note.id,
-                login = user.text.toString(),
-                password = password.text.toString(),
-                siteUrl = site.text.toString()
+            viewModel.updateNote(
+                Note(
+                    note.id,
+                    login = user.text.toString(),
+                    password = password.text.toString(),
+                    siteUrl = site.text.toString()
+                )
             )
-            viewModel.updateNote(changedNote)
 
             setViewsAvailability(false)
             setVisibilityToDoneAndCancel(View.GONE)
@@ -69,6 +70,7 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
         }
 
         viewBinding.tvDeleteNote.setOnClickListener {
+            //TODO: make dialog to ask "DO you really want to delete password?"
             viewModel.deleteNote(note)
             findNavController().popBackStack()
         }
@@ -110,6 +112,7 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
     }
 
     override val backPressedCallback: OnBackPressedCallback
+    //TODO: fun logout()
         get() = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().popBackStack()

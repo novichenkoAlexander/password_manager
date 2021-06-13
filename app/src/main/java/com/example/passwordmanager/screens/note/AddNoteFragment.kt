@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentAddNoteBinding
@@ -38,7 +39,7 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
                 done.apply {
                     isEnabled = true
                     @Suppress("DEPRECATION")
-                    setTextColor(resources.getColor(R.color.white))
+                    setTextColor(resources.getColor(R.color.main_text_color))
                 }
             } else {
                 done.apply {
@@ -48,15 +49,15 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
             }
         }
 
-        website.afterTextChanged {
+        website.doAfterTextChanged {
             checkFields(website, user, password)
         }
 
-        user.afterTextChanged {
+        user.doAfterTextChanged {
             checkFields(website, user, password)
         }
 
-        password.afterTextChanged {
+        password.doAfterTextChanged {
             checkFields(website, user, password)
         }
 
@@ -86,25 +87,6 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
             )
         }
     }
-
-    private fun EditText.afterTextChanged(onTextChanged: (String) -> Unit) {
-        this.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                onTextChanged.invoke(s.toString())
-            }
-
-        })
-    }
-
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.fragmentAddNoteToolbar.setVerticalMargin(marginTop = top)

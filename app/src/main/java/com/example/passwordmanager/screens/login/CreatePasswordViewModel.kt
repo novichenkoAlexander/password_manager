@@ -14,16 +14,14 @@ class CreatePasswordViewModel(private val userRepository: UserRepository) : Coro
 
     val passwordCreated: LiveData<Boolean> = userRepository.checkPasswordCreated().asLiveData()
 
-    fun createPassword(password: Long) = launch {
+    fun createPassword(password: String) = launch {
         try {
-            when {
-                password.toString().isNotEmpty() ->
-                    if (userRepository.createPassword(password)) {
-                        statusLiveData.postValue(PASSWORD_CREATED_SUCCESSFUL)
-                    } else {
-                        statusLiveData.postValue(ERROR_CREATING_PASSWORD)
-                    }
+            if (password.isNotEmpty() && userRepository.createPassword(password.toLong())) {
+                statusLiveData.postValue(PASSWORD_CREATED_SUCCESSFUL)
+            } else {
+                statusLiveData.postValue(ERROR_CREATING_PASSWORD)
             }
+
         } catch (e: Exception) {
             statusLiveData.postValue(e.message)
         }

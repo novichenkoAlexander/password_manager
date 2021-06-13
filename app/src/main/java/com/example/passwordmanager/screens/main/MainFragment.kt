@@ -1,8 +1,11 @@
 package com.example.passwordmanager.screens.main
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentMainBinding
@@ -46,4 +49,12 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.toolbarMain.setVerticalMargin(marginTop = top)
         viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
     }
+
+    override val backPressedCallback: OnBackPressedCallback
+        get() = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+
+        }
 }

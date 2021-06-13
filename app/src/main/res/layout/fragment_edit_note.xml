@@ -48,7 +48,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-condensed"
                 android:text="@string/edit"
-                android:textColor="@color/white"
+                android:textColor="@color/main_text_color"
                 android:textSize="20sp"
                 android:textStyle="normal" />
 
@@ -59,7 +59,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="12dp"
                 android:text="@string/done"
-                android:textColor="@color/white"
+                android:textColor="@color/main_text_color"
                 android:textSize="20sp"
                 android:visibility="gone" />
 
@@ -67,10 +67,10 @@
                 android:id="@+id/tvCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:layout_gravity="start"
+                android:layout_marginStart="12dp"
                 android:text="@string/cancel"
-                android:textColor="@color/white"
+                android:textColor="@color/main_text_color"
                 android:textSize="20sp"
                 android:visibility="gone" />
 
@@ -172,6 +172,7 @@
         android:id="@+id/tvDeleteNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:background="@drawable/text_view_delete_password_shape"
         android:elevation="8dp"
         android:gravity="center"

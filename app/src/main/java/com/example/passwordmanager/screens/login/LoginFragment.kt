@@ -2,8 +2,7 @@ package com.example.passwordmanager.screens.login
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentLoginBinding
@@ -25,18 +24,18 @@ class LoginFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment
         viewModel.statusLivaData.observe(this.viewLifecycleOwner) { status ->
             if (status.equals(LoginViewModel.SUCCESS)) {
                 findNavController().navigateSafe(LoginFragmentDirections.toMainFragment())
-                Toast.makeText(context, status, Toast.LENGTH_LONG).show()
             } else {
                 viewBinding.tvWrongPassword.visibility = View.VISIBLE
             }
-
         }
 
         viewBinding.btnConfirm.setOnClickListener {
             viewModel.login(viewBinding.loginFragmentEtPassword.text.toString())
         }
 
-
+        viewBinding.loginFragmentEtPassword.doAfterTextChanged {
+            viewBinding.tvWrongPassword.visibility = View.INVISIBLE
+        }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
