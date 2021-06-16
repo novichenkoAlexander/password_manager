@@ -74,7 +74,6 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
             viewModel.deleteNote(note)
             findNavController().popBackStack()
         }
-
     }
 
     private fun setDataToFields(
@@ -112,7 +111,7 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
     }
 
     override val backPressedCallback: OnBackPressedCallback
-    //TODO: fun logout()
+        //TODO: fun logout()
         get() = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().popBackStack()

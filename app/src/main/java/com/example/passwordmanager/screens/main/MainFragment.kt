@@ -28,14 +28,22 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         findNavController().navigateSafe(MainFragmentDirections.toEditNoteFragment(note))
     }
 
-    private fun setRecyclerViewVisibilityGone(flag: Boolean) {
-        if (flag) {
-            viewBinding.recyclerView.visibility = View.INVISIBLE
-            viewBinding.tvNoResult.visibility = View.VISIBLE
-            viewBinding.tvNoResult.text = "No results \n for \" ${viewBinding.searchView.query}\""
-        } else {
-            viewBinding.recyclerView.visibility = View.VISIBLE
-            viewBinding.tvNoResult.visibility = View.INVISIBLE
+    private fun setRecyclerViewVisibilityGone(listIsEmpty: Boolean) {
+        val text = viewBinding.searchView.query
+        when (listIsEmpty) {
+            true -> {
+                if (text.isNotEmpty()) {
+                    viewBinding.recyclerView.visibility = View.INVISIBLE
+                    viewBinding.tvNoResult.visibility = View.VISIBLE
+                    viewBinding.tvNoResult.text = "No results \n for \" ${text}\""
+                } else {
+                    viewBinding.tvNoResult.visibility = View.INVISIBLE
+                }
+            }
+            false -> {
+                viewBinding.recyclerView.visibility = View.VISIBLE
+                viewBinding.tvNoResult.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -45,7 +53,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.recyclerView.adapter = adapter
 
         viewModel.notesLiveDate.observe(this.viewLifecycleOwner) {
-            adapter.setNewList(it.toMutableList())
+            adapter.setNewList(ArrayList(it.toMutableList()))
         }
 
 

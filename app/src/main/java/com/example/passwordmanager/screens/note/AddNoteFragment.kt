@@ -36,13 +36,13 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
 
         viewModel.textEnteredLiveData.observe(this.viewLifecycleOwner) { notEmpty ->
             if (notEmpty) {
-                done.apply {
+                with(done) {
                     isEnabled = true
                     @Suppress("DEPRECATION")
                     setTextColor(resources.getColor(R.color.main_text_color))
                 }
             } else {
-                done.apply {
+                with(done) {
                     isEnabled = false
                     setTextColor(resources.getColor(R.color.note_item_color))
                 }
