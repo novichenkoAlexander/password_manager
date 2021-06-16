@@ -1,10 +1,7 @@
 package com.example.passwordmanager.screens.main
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
@@ -23,11 +20,23 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     private val viewModel: MainViewModel by viewModel()
 
     private val adapter = ItemRecyclerViewAdapter(
-        onClick = ::onItemClick
+        onClick = ::onItemClick,
+        emptySearchListCallback = ::setRecyclerViewVisibilityGone,
     )
 
     private fun onItemClick(note: Note) {
         findNavController().navigateSafe(MainFragmentDirections.toEditNoteFragment(note))
+    }
+
+    private fun setRecyclerViewVisibilityGone(flag: Boolean) {
+        if (flag) {
+            viewBinding.recyclerView.visibility = View.INVISIBLE
+            viewBinding.tvNoResult.visibility = View.VISIBLE
+            viewBinding.tvNoResult.text = "No results \n for \" ${viewBinding.searchView.query}\""
+        } else {
+            viewBinding.recyclerView.visibility = View.VISIBLE
+            viewBinding.tvNoResult.visibility = View.INVISIBLE
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,12 +45,25 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.recyclerView.adapter = adapter
 
         viewModel.notesLiveDate.observe(this.viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.setNewList(it.toMutableList())
         }
+
 
         viewBinding.fabAdd.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toAddNoteFragment())
         }
+
+        viewBinding.searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+        })
 
     }
 

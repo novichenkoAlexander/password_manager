@@ -3,16 +3,34 @@ package com.example.passwordmanager.screens.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.models.Note
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ItemRecyclerViewAdapter(
-    private val onClick: (Note) -> Unit
-) : ListAdapter<Note, ItemRecyclerViewAdapter.ItemViewHolder>(ItemAdapterDiffCallBack()) {
+    private val onClick: (Note) -> Unit,
+    private val emptySearchListCallback: (Boolean) -> Unit,
+    private var currentList: MutableList<Note> = mutableListOf()
+) : RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder>(),
+    Filterable {
+
+    var itemFilteredList: MutableList<Note>
+
+    init {
+        itemFilteredList = currentList
+    }
+
+    fun setNewList(mutableList: MutableList<Note>) {
+        currentList = mutableList
+        itemFilteredList = currentList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -22,11 +40,15 @@ class ItemRecyclerViewAdapter(
     )
 
     private fun onItemClick(position: Int) {
-        onClick(getItem(position))
+        onClick(itemFilteredList[position])
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        if (itemFilteredList.isNotEmpty()) {
+            holder.bind(itemFilteredList[position])
+        } else {
+            holder.bind(currentList[position])
+        }
     }
 
     inner class ItemViewHolder(
@@ -56,17 +78,49 @@ class ItemRecyclerViewAdapter(
     private fun setLetter(name: String): String {
         return name.substring(0, 1)
     }
-}
 
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString().lowercase(Locale.ROOT)
+                if (charSearch.isEmpty()) {
+                    itemFilteredList = currentList
+                } else {
+                    val resultList = ArrayList<Note>()
+                    for (item in currentList) {
+                        if (item.siteUrl.lowercase(Locale.ROOT)
+                                .contains(charSearch) || item.login.lowercase(
+                                Locale.ROOT
+                            ).contains(charSearch)
+                        ) {
+                            resultList.add(item)
+                        }
+                        itemFilteredList = resultList
+                    }
+                }
+                val filterResults = FilterResults()
+                filterResults.values = itemFilteredList
+                return filterResults
+            }
 
-class ItemAdapterDiffCallBack : DiffUtil.ItemCallback<Note>() {
-    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
-        return oldItem.id == newItem.id
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                itemFilteredList = results?.values as ArrayList<Note>
+                if (itemFilteredList.count() == 0) {
+                    emptySearchListCallback(true)
+                } else {
+                    emptySearchListCallback(false)
+                }
+                notifyDataSetChanged()
+            }
+        }
     }
 
-    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-        return oldItem.login == newItem.login && oldItem.siteUrl == newItem.siteUrl
-                && oldItem.password == newItem.password
+    override fun getItemCount(): Int {
+        return if (itemFilteredList.isNotEmpty()) {
+            itemFilteredList.size
+        } else {
+            currentList.size
+        }
     }
-
 }
