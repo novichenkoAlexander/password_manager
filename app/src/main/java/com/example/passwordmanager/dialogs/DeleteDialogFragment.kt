@@ -44,7 +44,7 @@ class DeleteDialogFragment(
     companion object {
         const val DELETE = "Delete"
         const val CANCEL = "Cancel"
-        const val DIALOG_TAG = "DIALOG FRAGMENT"
+        const val DIALOG_TAG = "DELETE DIALOG FRAGMENT"
     }
 
 }

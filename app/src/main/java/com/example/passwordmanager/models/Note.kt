@@ -15,5 +15,6 @@ data class Note(
 
     val login: String = "",
     val password: String = "",
-    val siteUrl: String = ""
+    val siteUrl: String = "",
+    val color: Int,
 ) : Parcelable

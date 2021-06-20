@@ -2,7 +2,6 @@ package com.example.passwordmanager.screens.main
 
 import androidx.lifecycle.asLiveData
 import com.example.passwordmanager.repositories.NotesRepository
-import com.example.passwordmanager.repositories.UserRepository
 import com.example.passwordmanager.support.CoroutineViewModel
 import kotlinx.coroutines.launch
 

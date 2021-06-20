@@ -51,7 +51,8 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
                     note.id,
                     login = user.text.toString(),
                     password = password.text.toString(),
-                    siteUrl = site.text.toString()
+                    siteUrl = site.text.toString(),
+                    color = note.color
                 )
             )
 
@@ -64,13 +65,13 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
 
             //Cancel changes
             setDataToFields(user, password, site, toolbarTitle)
-
             setVisibilityToDoneAndCancel(View.GONE)
             setVisibilityToEditAndBack(View.VISIBLE)
             setViewsAvailability(false)
         }
 
         viewBinding.tvDeleteNote.setOnClickListener {
+            @Suppress("DEPRECATION")
             fragmentManager?.let { it1 ->
                 DeleteDialogFragment(deleteCallback = { deleteNote(note) }).show(it1,
                     DeleteDialogFragment.DIALOG_TAG)

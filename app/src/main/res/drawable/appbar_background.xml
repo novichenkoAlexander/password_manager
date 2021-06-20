@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="#d1ed74" />
+    <solid android:color="@color/toolbar_color" />
     <corners
         android:bottomLeftRadius="32dp"
         android:bottomRightRadius="32dp" />

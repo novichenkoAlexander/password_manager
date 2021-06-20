@@ -1,22 +1,25 @@
 package com.example.passwordmanager.screens.main
 
+import android.content.ClipData
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.models.Note
+import com.google.android.material.card.MaterialCardView
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 class ItemRecyclerViewAdapter(
     private val onClick: (Note) -> Unit,
     private val emptySearchListCallback: (Boolean) -> Unit,
-    private var currentList: MutableList<Note> = mutableListOf()
+    private var currentList: MutableList<Note> = mutableListOf(),
 ) : RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder>(),
     Filterable {
 
@@ -33,7 +36,7 @@ class ItemRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
+        parent: ViewGroup, viewType: Int,
     ): ItemViewHolder = ItemViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.note_list_item, parent, false),
         ::onItemClick
@@ -53,12 +56,13 @@ class ItemRecyclerViewAdapter(
 
     inner class ItemViewHolder(
         itemView: View,
-        private val onItemClick: (Int) -> Unit
+        private val onItemClick: (Int) -> Unit,
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val tvSiteUrl = itemView.findViewById<TextView>(R.id.tvSiteUrl)
         private val tvLogin = itemView.findViewById<TextView>(R.id.tvLogin)
         private val ivIcon = itemView.findViewById<TextView>(R.id.ivIcon)
+        private val itemCard = itemView.findViewById<MaterialCardView>(R.id.itemCard)
 
 
         init {
@@ -67,13 +71,16 @@ class ItemRecyclerViewAdapter(
             }
         }
 
+
+        @Suppress("DEPRECATION")
         fun bind(item: Note) {
             tvSiteUrl.text = item.siteUrl
             tvLogin.text = item.login
             ivIcon.text = setLetter(item.siteUrl)
-            //TODO: make it with drawable
+            itemCard.setCardBackgroundColor(item.color)
         }
     }
+
 
     private fun setLetter(name: String): String {
         return name.substring(0, 1)
@@ -123,4 +130,6 @@ class ItemRecyclerViewAdapter(
             currentList.size
         }
     }
+
+
 }

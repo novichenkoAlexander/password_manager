@@ -19,4 +19,17 @@
     <color name="light_blue2">#CDDDEA</color>
     <color name="red">#AE2C23</color>
     <color name="blue">#085897</color>
+
+    <string-array name="note_colors">
+        <item>#ffffff</item>
+        <item>#cfd8dc</item>
+        <item>#f5f5f5</item>
+        <item>#d7ccc8</item>
+        <item>#ffccbc</item>
+        <item>#ffe0b2</item>
+        <item>#fff9c4</item>
+        <item>#dcedc8</item>
+        <item>#b2dfbd</item>
+        <item>#b3e5fc</item>
+    </string-array>
 </resources>

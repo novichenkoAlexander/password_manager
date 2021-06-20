@@ -16,7 +16,8 @@ class NotesRepository(private val notesDao: NotesDao) {
                 Note(
                     login = note.login,
                     password = note.password,
-                    siteUrl = note.siteUrl
+                    siteUrl = note.siteUrl,
+                    color = note.color
                 )
             )
         }
