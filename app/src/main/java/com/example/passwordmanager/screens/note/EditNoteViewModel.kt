@@ -8,6 +8,12 @@ import kotlinx.coroutines.launch
 class EditNoteViewModel(private val notesRepository: NotesRepository) : CoroutineViewModel() {
 
 
+    fun clearTable() {
+        launch {
+            notesRepository.clearTableFromGarbage()
+        }
+    }
+
     fun deleteNote(note: Note) = launch {
         notesRepository.deleteNote(note)
     }

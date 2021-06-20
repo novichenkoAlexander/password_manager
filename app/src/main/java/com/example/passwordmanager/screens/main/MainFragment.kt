@@ -53,11 +53,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel.clearTable()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,6 +60,11 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewModel.undoNotesLiveData.observe(this.viewLifecycleOwner) {
             adapter.setNewList(ArrayList(it.toMutableList()))
+        }
+
+        val note = viewModel.getNoteWithDeletedFlag()
+        if (note != null) {
+            makeSnackBar(note)
         }
 
         viewBinding.fabAdd.setOnClickListener {
@@ -91,6 +91,17 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
 
+    }
+
+    override fun onResume() {
+
+
+        super.onResume()
+    }
+
+    override fun onPause() {
+        viewModel.clearTable()
+        super.onPause()
     }
 
     private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {

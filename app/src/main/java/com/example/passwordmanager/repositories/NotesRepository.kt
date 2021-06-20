@@ -43,7 +43,7 @@ class NotesRepository(private val notesDao: NotesDao) {
         }
     }
 
-    suspend fun getNoteWithDeletedFlag(): Note {
+    suspend fun getNoteWithDeletedFlag(): Note? {
         return withContext(Dispatchers.IO) {
             notesDao.getNoteWithDeletedFlag()
         }
