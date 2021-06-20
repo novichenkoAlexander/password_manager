@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentMainBinding
 import com.example.passwordmanager.support.NavigationFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.passwordmanager.models.Note
+import com.example.passwordmanager.support.SwipeHelper
 import com.example.passwordmanager.support.navigateSafe
 import com.example.passwordmanager.support.setVerticalMargin
 
@@ -73,6 +76,31 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             }
         })
 
+        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(viewBinding.recyclerView) {
+            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
+                return listOf(deleteButton(position))
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
+
+    }
+
+    private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {
+        return SwipeHelper.UnderlayButton(
+            requireContext(),
+            "Delete",
+            20.0f,
+            android.R.color.holo_red_light,
+            object : SwipeHelper.UnderlayButtonClickListener {
+                override fun onClick() {
+                    deleteNoteBuPosition(position)
+                }
+            })
+    }
+
+    private fun deleteNoteBuPosition(pos: Int) {
+        viewModel.deleteByPos(pos)
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

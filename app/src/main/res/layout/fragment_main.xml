@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/app_background"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -19,18 +19,26 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/toolbar_color"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/toolbar_color"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed"
             app:statusBarScrim="@android:color/transparent">
 
-            <ImageView
-                android:id="@+id/expandedImage"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:background="@color/toolbar_color"
-                app:layout_collapseMode="parallax" />
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="110dp"
+                android:background="@drawable/et_background"
+                android:focusable="false"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/white"
+                app:iconifiedByDefault="false"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.8"
+                app:queryHint="@string/search_hint" />
 
             <Toolbar
                 android:id="@+id/toolbarMain"
@@ -52,20 +60,6 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/et_background"
-        android:paddingHorizontal="8dp"
-        app:queryHint="@string/search_hint"
-        android:textColor="@color/white"
-        app:layout_anchor="@id/toolbarMain"
-        app:iconifiedByDefault="false"
-        android:focusable="false"
-        app:layout_anchorGravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
@@ -94,11 +88,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="24sp"
         android:textColor="@color/main_text_color"
+        android:textSize="24sp"
         android:visibility="gone"
-        tools:text="No result"/>
-
+        tools:text="No result" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

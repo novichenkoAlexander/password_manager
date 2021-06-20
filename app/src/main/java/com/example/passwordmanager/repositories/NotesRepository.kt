@@ -12,7 +12,13 @@ class NotesRepository(private val notesDao: NotesDao) {
 
     suspend fun saveNote(note: Note) {
         withContext(Dispatchers.IO) {
-            notesDao.saveNote(note)
+            notesDao.saveNote(
+                Note(
+                    login = note.login,
+                    password = note.password,
+                    siteUrl = note.siteUrl
+                )
+            )
         }
     }
 
