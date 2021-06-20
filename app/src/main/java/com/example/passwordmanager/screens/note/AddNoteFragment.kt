@@ -2,12 +2,9 @@ package com.example.passwordmanager.screens.note
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.view.menu.MenuView
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.passwordmanager.R
@@ -16,7 +13,6 @@ import com.example.passwordmanager.support.NavigationFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.passwordmanager.models.Note
-import com.example.passwordmanager.screens.main.ItemRecyclerViewAdapter
 import com.example.passwordmanager.support.setVerticalMargin
 import kotlin.random.Random
 

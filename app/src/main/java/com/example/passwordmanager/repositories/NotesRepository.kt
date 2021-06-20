@@ -10,6 +10,8 @@ class NotesRepository(private val notesDao: NotesDao) {
 
     val notesFlow: Flow<List<Note>> = notesDao.getNotesFlow()
 
+    val notDeletedNotesFlow: Flow<List<Note>> = notesDao.getNotDeletedNotesFlow()
+
     suspend fun saveNote(note: Note) {
         withContext(Dispatchers.IO) {
             notesDao.saveNote(
@@ -32,6 +34,18 @@ class NotesRepository(private val notesDao: NotesDao) {
     suspend fun deleteNote(note: Note) {
         withContext(Dispatchers.IO) {
             notesDao.deleteNote(note)
+        }
+    }
+
+    suspend fun clearTableFromGarbage() {
+        withContext(Dispatchers.IO) {
+            notesDao.clearTableFromNotUndoNotes()
+        }
+    }
+
+    suspend fun getNoteWithDeletedFlag(): Note {
+        return withContext(Dispatchers.IO) {
+            notesDao.getNoteWithDeletedFlag()
         }
     }
 }

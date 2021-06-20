@@ -1,7 +1,5 @@
 package com.example.passwordmanager.screens.main
 
-import android.content.ClipData
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,7 @@ import com.example.passwordmanager.models.Note
 import com.google.android.material.card.MaterialCardView
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.random.Random
+
 
 class ItemRecyclerViewAdapter(
     private val onClick: (Note) -> Unit,
@@ -47,10 +45,12 @@ class ItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        if (itemFilteredList.isNotEmpty()) {
-            holder.bind(itemFilteredList[position])
-        } else {
-            holder.bind(currentList[position])
+        if (itemFilteredList.contains(Note(deleted = false)).not()) {
+            if (itemFilteredList.isNotEmpty()) {
+                holder.bind(itemFilteredList[position])
+            } else {
+                holder.bind(currentList[position])
+            }
         }
     }
 

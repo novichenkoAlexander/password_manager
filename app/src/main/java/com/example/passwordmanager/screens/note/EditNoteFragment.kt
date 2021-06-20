@@ -73,14 +73,16 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
         viewBinding.tvDeleteNote.setOnClickListener {
             @Suppress("DEPRECATION")
             fragmentManager?.let { it1 ->
-                DeleteDialogFragment(deleteCallback = { deleteNote(note) }).show(it1,
+                DeleteDialogFragment(deleteCallback = { deleteNoteWithUndo(note) }).show(it1,
                     DeleteDialogFragment.DIALOG_TAG)
             }
         }
     }
 
-    private fun deleteNote(note: Note) {
-        viewModel.deleteNote(note)
+    private fun deleteNoteWithUndo(note: Note) {
+        note.deleted = true
+        viewModel.updateNote(note)
+//        viewModel.deleteNote(note)
         findNavController().popBackStack()
     }
 

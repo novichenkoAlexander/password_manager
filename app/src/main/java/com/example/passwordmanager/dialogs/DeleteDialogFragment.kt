@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.DialogFragment
 import com.example.passwordmanager.R
@@ -30,7 +29,7 @@ class DeleteDialogFragment(
     }
 
     override fun onClick(v: View?) {
-        when ((v as AppCompatButton).text) {
+        when ((v as AppCompatButton).id) {
             DELETE -> {
                 deleteCallback()
                 dismiss()
@@ -42,8 +41,8 @@ class DeleteDialogFragment(
     }
 
     companion object {
-        const val DELETE = "Delete"
-        const val CANCEL = "Cancel"
+        const val DELETE = R.id.btnDelete
+        const val CANCEL = R.id.btnCancel
         const val DIALOG_TAG = "DELETE DIALOG FRAGMENT"
     }
 

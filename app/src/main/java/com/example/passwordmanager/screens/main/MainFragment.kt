@@ -1,7 +1,9 @@
 package com.example.passwordmanager.screens.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,6 +17,7 @@ import com.example.passwordmanager.models.Note
 import com.example.passwordmanager.support.SwipeHelper
 import com.example.passwordmanager.support.navigateSafe
 import com.example.passwordmanager.support.setVerticalMargin
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
@@ -50,15 +53,19 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         }
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewModel.clearTable()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.recyclerView.adapter = adapter
 
-        viewModel.notesLiveDate.observe(this.viewLifecycleOwner) {
+        viewModel.undoNotesLiveData.observe(this.viewLifecycleOwner) {
             adapter.setNewList(ArrayList(it.toMutableList()))
         }
-
 
         viewBinding.fabAdd.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toAddNoteFragment())
@@ -101,10 +108,19 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     private fun deleteNoteByPosition(pos: Int) {
         fragmentManager?.let {
-            DeleteDialogFragment(deleteCallback = { viewModel.deleteByPos(pos) }).show(it,
+            DeleteDialogFragment(deleteCallback = { viewModel.deleteWithUndo(pos, callback = ::makeSnackBar) }).show(it,
                 DeleteDialogFragment.DIALOG_TAG)
         }
+    }
 
+    private fun makeSnackBar(note: Note) {
+        Snackbar.make(viewBinding.recyclerView, "Item removed", Snackbar.LENGTH_LONG)
+            .setAction("UNDO") {
+                note.deleted = false
+                viewModel.updateNote(note)
+            }
+            .setActionTextColor(resources.getColor(R.color.teal_200))
+            .show()
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
