@@ -12,6 +12,7 @@ import com.example.passwordmanager.databinding.FragmentEditNoteBinding
 import com.example.passwordmanager.support.NavigationFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.passwordmanager.dialogs.DeleteDialogFragment
 import com.example.passwordmanager.models.Note
 import com.example.passwordmanager.support.setVerticalMargin
 
@@ -70,17 +71,23 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
         }
 
         viewBinding.tvDeleteNote.setOnClickListener {
-            //TODO: make dialog to ask "DO you really want to delete password?"
-            viewModel.deleteNote(note)
-            findNavController().popBackStack()
+            fragmentManager?.let { it1 ->
+                DeleteDialogFragment(deleteCallback = { deleteNote(note) }).show(it1,
+                    DeleteDialogFragment.DIALOG_TAG)
+            }
         }
+    }
+
+    private fun deleteNote(note: Note) {
+        viewModel.deleteNote(note)
+        findNavController().popBackStack()
     }
 
     private fun setDataToFields(
         user: EditText,
         password: EditText,
         site: EditText,
-        toolbarTitle: TextView
+        toolbarTitle: TextView,
     ): Note {
         return args.note.apply {
             user.setText(this.login)

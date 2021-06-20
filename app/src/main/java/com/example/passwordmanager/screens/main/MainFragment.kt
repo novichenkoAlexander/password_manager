@@ -2,15 +2,16 @@ package com.example.passwordmanager.screens.main
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentMainBinding
 import com.example.passwordmanager.support.NavigationFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.passwordmanager.dialogs.DeleteDialogFragment
 import com.example.passwordmanager.models.Note
 import com.example.passwordmanager.support.SwipeHelper
 import com.example.passwordmanager.support.navigateSafe
@@ -94,13 +95,17 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             android.R.color.holo_red_light,
             object : SwipeHelper.UnderlayButtonClickListener {
                 override fun onClick() {
-                    deleteNoteBuPosition(position)
+                    deleteNoteByPosition(position)
                 }
             })
     }
 
-    private fun deleteNoteBuPosition(pos: Int) {
-        viewModel.deleteByPos(pos)
+    private fun deleteNoteByPosition(pos: Int) {
+        fragmentManager?.let {
+            DeleteDialogFragment(deleteCallback = { viewModel.deleteByPos(pos) }).show(it,
+                DeleteDialogFragment.DIALOG_TAG)
+        }
+
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
