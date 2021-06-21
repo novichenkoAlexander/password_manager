@@ -48,7 +48,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.recyclerView.adapter = adapter
 
         viewModel.undoNotesLiveData.observe(this.viewLifecycleOwner) {
-            adapter.setNewList(it.toMutableList())
+            val mutableNotesList = it.toMutableList()
+            adapter.setNewList(mutableNotesList)
         }
 
         viewModel.markedAsDeletedNoteLiveData.observe(this.viewLifecycleOwner) { note ->

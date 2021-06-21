@@ -84,7 +84,6 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
     private fun deleteNoteWithUndo(note: Note) {
         note.deleted = true
         viewModel.updateNote(note)
-//        viewModel.deleteNote(note)
         findNavController().popBackStack()
     }
 
