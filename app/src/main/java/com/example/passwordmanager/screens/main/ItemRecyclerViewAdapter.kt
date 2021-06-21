@@ -45,12 +45,10 @@ class ItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        if (itemFilteredList.contains(Note(deleted = false)).not()) {
-            if (itemFilteredList.isNotEmpty()) {
-                holder.bind(itemFilteredList[position])
-            } else {
-                holder.bind(currentList[position])
-            }
+        if (itemFilteredList.isNotEmpty()) {
+            holder.bind(itemFilteredList[position])
+        } else {
+            holder.bind(currentList[position])
         }
     }
 
@@ -76,13 +74,13 @@ class ItemRecyclerViewAdapter(
         fun bind(item: Note) {
             tvSiteUrl.text = item.siteUrl
             tvLogin.text = item.login
-            ivIcon.text = setLetter(item.siteUrl)
+            ivIcon.text = setImageSymbol(item.siteUrl)
             itemCard.setCardBackgroundColor(item.color)
         }
     }
 
 
-    private fun setLetter(name: String): String {
+    private fun setImageSymbol(name: String): String {
         return name.substring(0, 1)
     }
 

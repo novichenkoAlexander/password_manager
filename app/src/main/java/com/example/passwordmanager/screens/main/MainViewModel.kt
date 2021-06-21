@@ -5,24 +5,19 @@ import com.example.passwordmanager.models.Note
 import com.example.passwordmanager.repositories.NotesRepository
 import com.example.passwordmanager.support.CoroutineViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class MainViewModel(private val notesRepository: NotesRepository) : CoroutineViewModel() {
 
-    val notesLiveData = notesRepository.notesFlow.asLiveData()
+    val markedAsDeletedNoteLiveData = notesRepository.markedAsDeletedNoteFlow.asLiveData()
 
     val undoNotesLiveData = notesRepository.notDeletedNotesFlow.asLiveData()
 
-    fun getNoteWithDeletedFlag(): Note? = runBlocking {
-        notesRepository.getNoteWithDeletedFlag()
-    }
 
-    fun deleteWithUndo(position: Int, callback: (Note) -> Unit) {
+    fun deleteWithUndo(position: Int) {
         launch {
             val note = undoNotesLiveData.value?.get(position)
             note?.deleted = true
             note?.let { notesRepository.updateNote(it) }
-            note?.let { callback(it) }
         }
     }
 

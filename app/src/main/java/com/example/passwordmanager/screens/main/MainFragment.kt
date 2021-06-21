@@ -1,9 +1,7 @@
 package com.example.passwordmanager.screens.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -34,23 +32,14 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         findNavController().navigateSafe(MainFragmentDirections.toEditNoteFragment(note))
     }
 
-    private fun setRecyclerViewVisibilityGone(listIsEmpty: Boolean) {
-        val text = viewBinding.searchView.query
-        when (listIsEmpty) {
-            true -> {
-                if (text.isNotEmpty()) {
-                    viewBinding.recyclerView.visibility = View.INVISIBLE
-                    viewBinding.tvNoResult.visibility = View.VISIBLE
-                    viewBinding.tvNoResult.text = "No results \n for \" ${text}\""
-                } else {
-                    viewBinding.tvNoResult.visibility = View.INVISIBLE
-                }
-            }
-            false -> {
-                viewBinding.recyclerView.visibility = View.VISIBLE
-                viewBinding.tvNoResult.visibility = View.INVISIBLE
-            }
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        viewModel.clearTable()
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onPause() {
+        viewModel.clearTable()
+        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,12 +48,13 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.recyclerView.adapter = adapter
 
         viewModel.undoNotesLiveData.observe(this.viewLifecycleOwner) {
-            adapter.setNewList(ArrayList(it.toMutableList()))
+            adapter.setNewList(it.toMutableList())
         }
 
-        val note = viewModel.getNoteWithDeletedFlag()
-        if (note != null) {
-            makeSnackBar(note)
+        viewModel.markedAsDeletedNoteLiveData.observe(this.viewLifecycleOwner) { note ->
+            if (note != null) {
+                makeSnackBar(note)
+            }
         }
 
         viewBinding.fabAdd.setOnClickListener {
@@ -93,15 +83,23 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     }
 
-    override fun onResume() {
-
-
-        super.onResume()
-    }
-
-    override fun onPause() {
-        viewModel.clearTable()
-        super.onPause()
+    private fun setRecyclerViewVisibilityGone(listIsEmpty: Boolean) {
+        val text = viewBinding.searchView.query
+        when (listIsEmpty) {
+            true -> {
+                if (text.isNotEmpty()) {
+                    viewBinding.recyclerView.visibility = View.INVISIBLE
+                    viewBinding.tvNoResult.visibility = View.VISIBLE
+                    viewBinding.tvNoResult.text = "No results \n for \" ${text}\""
+                } else {
+                    viewBinding.tvNoResult.visibility = View.INVISIBLE
+                }
+            }
+            false -> {
+                viewBinding.recyclerView.visibility = View.VISIBLE
+                viewBinding.tvNoResult.visibility = View.INVISIBLE
+            }
+        }
     }
 
     private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {
@@ -119,7 +117,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     private fun deleteNoteByPosition(pos: Int) {
         fragmentManager?.let {
-            DeleteDialogFragment(deleteCallback = { viewModel.deleteWithUndo(pos, callback = ::makeSnackBar) }).show(it,
+            DeleteDialogFragment(deleteCallback = { viewModel.deleteWithUndo(pos) }).show(it,
                 DeleteDialogFragment.DIALOG_TAG)
         }
     }

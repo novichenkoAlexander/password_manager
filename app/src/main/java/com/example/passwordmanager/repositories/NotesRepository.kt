@@ -8,9 +8,10 @@ import kotlinx.coroutines.withContext
 
 class NotesRepository(private val notesDao: NotesDao) {
 
-    val notesFlow: Flow<List<Note>> = notesDao.getNotesFlow()
 
     val notDeletedNotesFlow: Flow<List<Note>> = notesDao.getNotDeletedNotesFlow()
+
+    val markedAsDeletedNoteFlow: Flow<Note?> = notesDao.getNoteWithDeletedFlag()
 
     suspend fun saveNote(note: Note) {
         withContext(Dispatchers.IO) {
@@ -19,7 +20,8 @@ class NotesRepository(private val notesDao: NotesDao) {
                     login = note.login,
                     password = note.password,
                     siteUrl = note.siteUrl,
-                    color = note.color
+                    color = note.color,
+                    deleted = note.deleted
                 )
             )
         }
@@ -42,10 +44,5 @@ class NotesRepository(private val notesDao: NotesDao) {
             notesDao.clearTableFromNotUndoNotes()
         }
     }
-
-    suspend fun getNoteWithDeletedFlag(): Note? {
-        return withContext(Dispatchers.IO) {
-            notesDao.getNoteWithDeletedFlag()
-        }
-    }
 }
+

@@ -29,7 +29,7 @@ class CreatePasswordViewModel(private val userRepository: UserRepository) : Coro
 
     companion object {
         const val PASSWORD_CREATED_SUCCESSFUL = "Password created successful"
-        const val ERROR_CREATING_PASSWORD = "Password length too short"
+        const val ERROR_CREATING_PASSWORD = "Password must be at least 4 characters long "
     }
 
 }

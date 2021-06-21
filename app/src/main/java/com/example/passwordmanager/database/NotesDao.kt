@@ -30,5 +30,5 @@ abstract class NotesDao {
     abstract fun clearTableFromNotUndoNotes()
 
     @Query("SELECT * FROM notes WHERE deleted = 1")
-    abstract fun getNoteWithDeletedFlag(): Note?
+    abstract fun getNoteWithDeletedFlag(): Flow<Note?>
 }
