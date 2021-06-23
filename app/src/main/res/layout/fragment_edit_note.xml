@@ -95,6 +95,7 @@
 
     <EditText
         android:id="@+id/etUserName"
+        style="@style/NoteFragmentEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginHorizontal="12dp"
@@ -103,13 +104,15 @@
         android:elevation="4dp"
         android:enabled="false"
         android:hint="@string/user_hint"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:maxLines="1"
+        android:nextFocusDown="@id/etPassword"
         android:paddingHorizontal="12dp"
-        android:theme="@style/NoteFragmentEditTextStyle"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+        tools:text="aaaaaa" />
 
     <TextView
         android:id="@+id/tvPassword"
@@ -125,6 +128,7 @@
 
     <EditText
         android:id="@+id/etPassword"
+        style="@style/NoteFragmentEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginHorizontal="12dp"
@@ -133,9 +137,10 @@
         android:elevation="4dp"
         android:enabled="false"
         android:hint="@string/password_hint"
+        android:imeOptions="actionNext"
         android:maxLines="1"
         android:paddingHorizontal="12dp"
-        android:theme="@style/NoteFragmentEditTextStyle"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPassword" />
@@ -154,6 +159,7 @@
 
     <EditText
         android:id="@+id/etSiteUrl"
+        style="@style/NoteFragmentEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginHorizontal="12dp"
@@ -162,8 +168,9 @@
         android:elevation="4dp"
         android:enabled="false"
         android:hint="@string/website_hint"
+        android:imeOptions="actionDone"
         android:paddingHorizontal="12dp"
-        android:theme="@style/NoteFragmentEditTextStyle"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSiteUrl" />

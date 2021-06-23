@@ -9,6 +9,7 @@
         android:id="@+id/ivLock"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:contentDescription="@string/passwords_are_locked"
         android:src="@drawable/ic_padlock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,26 +27,32 @@
         android:textAlignment="center"
         android:textColor="@color/main_text_color"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/login_fragment_et_password"
+        app:layout_constraintBottom_toTopOf="@+id/login_fragment_text_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivLock" />
 
-    <EditText
-        android:id="@+id/login_fragment_et_password"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_fragment_text_input_layout"
+        style="@style/TextInputLayout.App.Theme"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/edit_text_note_item_shape"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:hint="@string/enter_passcode"
-        android:inputType="numberPassword"
-        android:maxLines="1"
-        android:paddingHorizontal="12dp"
-        android:theme="@style/NoteFragmentEditTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_fragment_tv_passwords_are_locked" />
+        app:layout_constraintTop_toBottomOf="@+id/login_fragment_tv_passwords_are_locked"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_fragment_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberPassword"
+            android:paddingHorizontal="12dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_wrongPassword"
@@ -59,7 +66,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_fragment_et_password" />
+        app:layout_constraintTop_toBottomOf="@id/login_fragment_text_input_layout" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnConfirm"
@@ -67,14 +74,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/button_shape"
+        android:elevation="8dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/confirm"
         android:textColor="@color/main_text_color"
-        android:elevation="8dp"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wrongPassword" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

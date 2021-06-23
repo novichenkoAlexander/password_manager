@@ -1,8 +1,10 @@
 package com.example.passwordmanager.screens.main
 
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.passwordmanager.R
@@ -15,6 +17,7 @@ import com.example.passwordmanager.models.Note
 import com.example.passwordmanager.support.SwipeHelper
 import com.example.passwordmanager.support.navigateSafe
 import com.example.passwordmanager.support.setVerticalMargin
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -23,33 +26,22 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     private val viewModel: MainViewModel by viewModel()
 
-    private val adapter = ItemRecyclerViewAdapter(
-        onClick = ::onItemClick,
-        emptySearchListCallback = ::setRecyclerViewVisibilityGone,
-    )
+    private lateinit var adapter: ItemRecyclerViewAdapter
 
     private fun onItemClick(note: Note) {
         findNavController().navigateSafe(MainFragmentDirections.toEditNoteFragment(note))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        viewModel.clearTable()
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onPause() {
-        viewModel.clearTable()
-        super.onPause()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.recyclerView.adapter = adapter
-
         viewModel.undoNotesLiveData.observe(this.viewLifecycleOwner) {
-            val mutableNotesList = it.toMutableList()
-            adapter.setNewList(mutableNotesList)
+            adapter = ItemRecyclerViewAdapter(
+                onClick = ::onItemClick,
+                emptySearchListCallback = ::setRecyclerViewVisibilityGone,
+                it.toMutableList()
+            )
+            viewBinding.recyclerView.adapter = adapter
         }
 
         viewModel.markedAsDeletedNoteLiveData.observe(this.viewLifecycleOwner) { note ->
@@ -124,25 +116,28 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     }
 
     private fun makeSnackBar(note: Note) {
-        Snackbar.make(viewBinding.recyclerView, "Item removed", Snackbar.LENGTH_LONG)
+        val snackBar = Snackbar
+            .make(viewBinding.recyclerView, "Item removed", Snackbar.LENGTH_LONG)
             .setAction("UNDO") {
                 note.deleted = false
                 viewModel.updateNote(note)
             }
-            .setActionTextColor(resources.getColor(R.color.teal_200))
-            .show()
+            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                override fun onShown(transientBottomBar: Snackbar?) {
+                    super.onShown(transientBottomBar)
+                }
+
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    viewModel.clearTable()
+                    super.onDismissed(transientBottomBar, event)
+                }
+            })
+        snackBar.setActionTextColor(resources.getColor(R.color.teal_200))
+        snackBar.show()
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbarMain.setVerticalMargin(marginTop = top)
         viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
     }
-
-    override val backPressedCallback: OnBackPressedCallback
-        get() = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-
-        }
 }

@@ -15,4 +15,15 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="TextInputLayout.App.Theme" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox
+        </item>
+        <item name="boxCollapsedPaddingTop">4dp</item>
+        <item name="strokeWidth">4dp</item>
+        <item name="boxBackgroundColor">@color/app_secondary_background</item>
+
+        <item name="android:textColorHint">@color/main_text_color</item>
+    </style>
 </resources>

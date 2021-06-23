@@ -1,9 +1,7 @@
 package com.example.passwordmanager.screens.note
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -111,10 +109,20 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
         viewBinding.tvEdit.visibility = visibility
     }
 
+    @Suppress("DEPRECATION")
     private fun setViewsAvailability(enable: Boolean) {
         viewBinding.etUserName.isEnabled = enable
         viewBinding.etPassword.isEnabled = enable
         viewBinding.etSiteUrl.isEnabled = enable
+        if (enable) {
+            viewBinding.etUserName.setTextColor(resources.getColor(R.color.blue))
+            viewBinding.etPassword.setTextColor(resources.getColor(R.color.blue))
+            viewBinding.etSiteUrl.setTextColor(resources.getColor(R.color.blue))
+        } else {
+            viewBinding.etUserName.setTextColor(resources.getColor(R.color.main_text_color))
+            viewBinding.etPassword.setTextColor(resources.getColor(R.color.main_text_color))
+            viewBinding.etSiteUrl.setTextColor(resources.getColor(R.color.main_text_color))
+        }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
@@ -122,7 +130,6 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
     }
 
     override val backPressedCallback: OnBackPressedCallback
-        //TODO: fun logout()
         get() = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().popBackStack()

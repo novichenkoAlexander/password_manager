@@ -27,12 +27,6 @@ class ItemRecyclerViewAdapter(
         itemFilteredList = currentList
     }
 
-    fun setNewList(mutableList: MutableList<Note>) {
-        currentList = mutableList
-        itemFilteredList = currentList
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int,
     ): ItemViewHolder = ItemViewHolder(

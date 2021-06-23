@@ -25,4 +25,5 @@
     <string name="delete_password_anyway">The password will be deleted forever.</string>
     <string name="delete_password_question">Delete Password?</string>
     <string name="delete">Delete</string>
+    <string name="icon_image">IconImage</string>
 </resources>
