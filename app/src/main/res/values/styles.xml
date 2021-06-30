@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarTextStyle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:text">@string/toolbar_title</item>
+        <item name="fontFamily">serif</item>
+    </style>
+
+    <style name="NoteFragmentTextViewStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="NoteFragmentEditTextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+</resources>

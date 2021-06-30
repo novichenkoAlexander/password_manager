@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_color"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Toolbar
+            android:id="@+id/fragment_add_note_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbar_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/fragment_add_note_tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/cancel"
+                android:textColor="@color/blue"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fragment_add_note_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:text="@string/add_password"
+                android:textColor="@color/main_text_color"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/fragment_add_note_tv_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                android:enabled="false"
+                android:text="@string/done"
+                android:textColor="@color/note_item_color"
+                android:textSize="20sp" />
+
+        </Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/tvWebsite"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/add_password_text_fields_shape"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:text="@string/website"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_add_note_website"
+        app:layout_constraintEnd_toStartOf="@id/fragment_add_note_website"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_add_note_website" />
+
+    <EditText
+        android:id="@+id/fragment_add_note_website"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/add_password_edit_fields_shape"
+        android:elevation="4dp"
+        android:hint="@string/example_com"
+        android:imeOptions="actionNext"
+        android:paddingHorizontal="18dp"
+        android:singleLine="true"
+        android:textAlignment="textEnd"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvWebsite"
+        app:layout_constraintTop_toBottomOf="@id/appBar" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/add_password_text_fields_shape"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:text="@string/username"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_add_note_userName"
+        app:layout_constraintEnd_toStartOf="@id/fragment_add_note_userName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_add_note_userName" />
+
+    <EditText
+        android:id="@+id/fragment_add_note_userName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/add_password_edit_fields_shape"
+        android:elevation="4dp"
+        android:hint="@string/user"
+        android:imeOptions="actionNext"
+        android:paddingHorizontal="18dp"
+        android:singleLine="true"
+        android:textAlignment="textEnd"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvUserName"
+        app:layout_constraintTop_toBottomOf="@id/fragment_add_note_website" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/add_password_text_fields_shape"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:text="@string/password"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_add_note_password"
+        app:layout_constraintEnd_toStartOf="@id/fragment_add_note_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_add_note_password" />
+
+    <EditText
+        android:id="@+id/fragment_add_note_password"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/add_password_edit_fields_shape"
+        android:elevation="4dp"
+        android:hint="@string/password_low_camel"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
+        android:paddingHorizontal="18dp"
+        android:singleLine="true"
+        android:textAlignment="textEnd"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvPassword"
+        app:layout_constraintTop_toBottomOf="@id/fragment_add_note_userName" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
