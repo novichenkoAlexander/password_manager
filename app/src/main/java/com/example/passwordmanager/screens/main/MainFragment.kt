@@ -1,10 +1,9 @@
 package com.example.passwordmanager.screens.main
 
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.PorterDuff
+
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.passwordmanager.R
@@ -46,6 +45,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewModel.markedAsDeletedNoteLiveData.observe(this.viewLifecycleOwner) { note ->
             if (note != null) {
+                println("SUKA")
                 makeSnackBar(note)
             }
         }
@@ -108,6 +108,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             })
     }
 
+    @Suppress("DEPRECATION")
     private fun deleteNoteByPosition(pos: Int) {
         fragmentManager?.let {
             DeleteDialogFragment(deleteCallback = { viewModel.deleteWithUndo(pos) }).show(it,
@@ -115,6 +116,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun makeSnackBar(note: Note) {
         val snackBar = Snackbar
             .make(viewBinding.recyclerView, "Item removed", Snackbar.LENGTH_LONG)
@@ -122,19 +124,21 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
                 note.deleted = false
                 viewModel.updateNote(note)
             }
+            .setActionTextColor(resources.getColor(R.color.teal_200))
             .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                 override fun onShown(transientBottomBar: Snackbar?) {
                     super.onShown(transientBottomBar)
                 }
 
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    viewModel.clearTable()
-                    super.onDismissed(transientBottomBar, event)
+                    if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT) {
+                        viewModel.clearTable()
+                    }
                 }
             })
-        snackBar.setActionTextColor(resources.getColor(R.color.teal_200))
         snackBar.show()
     }
+
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbarMain.setVerticalMargin(marginTop = top)

@@ -24,21 +24,33 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
 
     private val args: EditNoteFragmentArgs by navArgs()
 
+    private lateinit var user: EditText
+    private lateinit var password: EditText
+    private lateinit var site: EditText
+    private lateinit var toolbarTitle: TextView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = viewBinding.etUserName
-        val password = viewBinding.etPassword
-        val site = viewBinding.etSiteUrl
-        val toolbarTitle = viewBinding.tvToolbarTitle
+        user = viewBinding.etUserName
+        password = viewBinding.etPassword
+        site = viewBinding.etSiteUrl
+        toolbarTitle = viewBinding.tvToolbarTitle
 
-        val note = setDataToFields(user, password, site, toolbarTitle)
+        var note = setDataToFields(user, password, site, toolbarTitle)
 
         viewBinding.ivCursorBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
         viewBinding.tvEdit.setOnClickListener {
+            note = Note(
+                id = note.id,
+                login = user.text.toString(),
+                password = password.text.toString(),
+                siteUrl = site.text.toString(),
+                color = note.color
+            )
             setViewsAvailability(true)
             setVisibilityToDoneAndCancel(View.VISIBLE)
             setVisibilityToEditAndBack(View.GONE)
@@ -64,7 +76,7 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
         viewBinding.tvCancel.setOnClickListener {
 
             //Cancel changes
-            setDataToFields(user, password, site, toolbarTitle)
+            cancelChanges(note)
             setVisibilityToDoneAndCancel(View.GONE)
             setVisibilityToEditAndBack(View.VISIBLE)
             setViewsAvailability(false)
@@ -77,6 +89,12 @@ class EditNoteFragment : NavigationFragment<FragmentEditNoteBinding>(R.layout.fr
                     DeleteDialogFragment.DIALOG_TAG)
             }
         }
+    }
+
+    private fun cancelChanges(note: Note) {
+        user.setText(note.login)
+        password.setText(note.password)
+        site.setText(note.siteUrl)
     }
 
     private fun deleteNoteWithUndo(note: Note) {

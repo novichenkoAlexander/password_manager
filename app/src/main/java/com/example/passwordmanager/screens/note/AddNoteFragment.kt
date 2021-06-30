@@ -39,7 +39,7 @@ class AddNoteFragment : NavigationFragment<FragmentAddNoteBinding>(R.layout.frag
                 with(done) {
                     isEnabled = true
                     @Suppress("DEPRECATION")
-                    setTextColor(resources.getColor(R.color.main_text_color))
+                    setTextColor(resources.getColor(R.color.blue))
                 }
             } else {
                 with(done) {
