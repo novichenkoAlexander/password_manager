@@ -9,9 +9,11 @@ import kotlinx.coroutines.launch
 class AddNoteViewModel(private val notesRepository: NotesRepository) : CoroutineViewModel() {
 
     val textEnteredLiveData = MutableLiveData<Boolean>()
+    val siteUrlRegEx =
+        "^((ftp|http|https):\\/\\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\\.[a-zA-Z]+)+((\\/)[\\w#]+)*(\\/\\w+\\?[a-zA-Z0-9_]+=\\w+(&[a-zA-Z0-9_]+=\\w+)*)?\$"
 
     fun checkForEmptyFields(website: String, username: String, password: String) {
-        if (website.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
+        if (website.isNotEmpty() && website.contains(siteUrlRegEx.toRegex()) && username.isNotEmpty() && password.isNotEmpty()) {
             textEnteredLiveData.postValue(true)
         } else {
             textEnteredLiveData.postValue(false)

@@ -3,7 +3,6 @@ package com.example.passwordmanager.screens.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.passwordmanager.R
@@ -45,7 +44,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewModel.markedAsDeletedNoteLiveData.observe(this.viewLifecycleOwner) { note ->
             if (note != null) {
-                println("SUKA")
                 makeSnackBar(note)
             }
         }
