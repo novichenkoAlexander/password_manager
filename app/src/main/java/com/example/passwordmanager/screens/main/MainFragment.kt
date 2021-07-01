@@ -33,7 +33,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.undoNotesLiveData.observe(this.viewLifecycleOwner) {
+        viewModel.notesLiveData.observe(this.viewLifecycleOwner) {
             adapter = ItemRecyclerViewAdapter(
                 onClick = ::onItemClick,
                 emptySearchListCallback = ::setRecyclerViewVisibilityGone,

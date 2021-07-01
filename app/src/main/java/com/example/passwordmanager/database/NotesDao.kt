@@ -20,7 +20,7 @@ abstract class NotesDao {
     @Query("SELECT * FROM notes")
     abstract fun getNotesFlow(): Flow<List<Note>>
 
-    @Query("SELECT * FROM notes WHERE deleted = 0")
+    @Query("SELECT * FROM notes WHERE deleted = 0 ORDER BY LOWER(siteUrl) ASC")
     abstract fun getNotDeletedNotesFlow(): Flow<List<Note>>
 
     @Query("SELECT * FROM notes WHERE id==:noteId")
@@ -31,4 +31,7 @@ abstract class NotesDao {
 
     @Query("SELECT * FROM notes WHERE deleted = 1")
     abstract fun getNoteWithDeletedFlag(): Flow<Note?>
+
+    @Query("SELECT * FROM notes WHERE siteUrl==:siteUrl AND login==:login")
+    abstract fun checkForSimilarNote(siteUrl: String, login: String): Note?
 }
