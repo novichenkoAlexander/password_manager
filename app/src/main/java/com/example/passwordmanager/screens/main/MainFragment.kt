@@ -2,9 +2,12 @@ package com.example.passwordmanager.screens.main
 
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentMainBinding
 import com.example.passwordmanager.support.NavigationFragment
@@ -17,6 +20,7 @@ import com.example.passwordmanager.support.navigateSafe
 import com.example.passwordmanager.support.setVerticalMargin
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller
 
 class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
@@ -34,6 +38,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.notesLiveData.observe(this.viewLifecycleOwner) {
+            
             adapter = ItemRecyclerViewAdapter(
                 onClick = ::onItemClick,
                 emptySearchListCallback = ::setRecyclerViewVisibilityGone,

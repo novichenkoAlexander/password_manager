@@ -90,4 +90,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
     implementation "com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.1"
+
+    implementation 'xyz.danoz:recyclerviewfastscroller:0.1.3'
 }
