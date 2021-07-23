@@ -15,15 +15,27 @@ class NotesRepository(private val notesDao: NotesDao) {
 
     suspend fun saveNote(note: Note) {
         withContext(Dispatchers.IO) {
-            notesDao.saveNote(
-                Note(
-                    login = note.login,
-                    password = note.password,
-                    siteUrl = note.siteUrl,
-                    color = note.color,
-                    deleted = note.deleted
+            val noteToUpdate: Note? = notesDao.checkForSimilarNote(note.siteUrl, note.login)
+            if (noteToUpdate == null) {
+                notesDao.saveNote(
+                    Note(
+                        login = note.login,
+                        password = note.password,
+                        siteUrl = note.siteUrl,
+                        color = note.color
+                    )
                 )
-            )
+            } else {
+                notesDao.saveNote(
+                    Note(
+                        id = noteToUpdate.id,
+                        login = note.login,
+                        password = note.password,
+                        siteUrl = note.siteUrl,
+                        color = noteToUpdate.color
+                    )
+                )
+            }
         }
     }
 
